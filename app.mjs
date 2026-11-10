@@ -67,9 +67,10 @@ async function startGame(id){
     await new Promise(resolve=>{releasePlayer=resolve;});
   });
 }
-function endGame(){clearTimeout(playTimer);$('frame-host').replaceChildren();$('player-view').hidden=true;$('library-view').hidden=false;document.body.classList.remove('playing');playing=null;releasePlayer?.();releasePlayer=null;notice('ゲームを終了しました。セーブは端末内に保存されています。');}
+function endGame(){clearTimeout(playTimer);$('frame-host').replaceChildren();$('player-view').hidden=true;$('player-view').classList.remove('immersive');$('library-view').hidden=false;document.body.classList.remove('playing');playing=null;releasePlayer?.();releasePlayer=null;notice('ゲームを終了しました。セーブは端末内に保存されています。');}
 $('exit-game').onclick=async()=>{if(!playing)return;if(await confirmAction('ライブラリへ戻りますか？','ゲーム内でセーブしてから終了してください。まだセーブしていない進行は失われます。','終了して戻る'))endGame();};
 window.addEventListener('message',event=>{const frame=$('game-frame'),data=event.data;if(!playing||event.source!==frame?.contentWindow||event.origin!==location.origin||data?.type!=='mv-web-player-runtime'||data.gameId!==playing.id)return;
+  if(data.event==='controls-layout')$('player-view').classList.toggle('immersive',data.message==='overlay');
   if(data.event==='ready'){clearTimeout(playTimer);$('playing-status').textContent='1P · 端末内で再生';}else if(data.event==='save')$('playing-status').textContent='セーブしました';else if(data.event==='error'){$('playing-status').textContent='エラー・ゲーム内の確認を開いてください';}
 });
 async function storageStatus(){try{const estimate=await navigator.storage?.estimate?.(),protectedStorage=await navigator.storage?.persisted?.();$('storage-status').textContent=estimate?`${bytes(estimate.usage)} 使用 / 上限目安 ${bytes(estimate.quota)} · ${protectedStorage?'永続保存の許可あり':'バックアップをおすすめします'}`:'使用量の表示はこのブラウザーでは利用できません。';}catch{$('storage-status').textContent='使用量を確認できませんでした。';}}
