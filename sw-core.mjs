@@ -1,5 +1,5 @@
 // No game bytes are sent to the host. Virtual game requests are answered from IndexedDB.
-export const SHELL_VERSION='1.1.0';
+export const SHELL_VERSION='1.2.0';
 export const SHELL_FILES=['index.html','styles.css','app.mjs','sw-core.mjs','store.mjs','zip.mjs','importer.mjs','saves.mjs','runtime.js','manifest.webmanifest','icon.svg','apple-touch-icon.png'];
 export const GAME_CSP="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'";
 export function parseGameURL(input,scope){
