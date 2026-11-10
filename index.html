@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#152c24"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="description" content="自分のRPGツクールMVゲームを、iPhoneで。ZIPを端末に取り込み、オフラインで1Pテストプレイ。">
+<title>MV Pocket — ゲームライブラリ</title><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"><script type="module" src="app.mjs"></script>
+</head><body>
+<div id="library-view">
+<header class="topbar"><a class="brand" href="./"><img src="icon.svg" width="36" height="36" alt=""><span>MV <b>POCKET</b></span></a><span id="connection" class="pill">端末でプレイ</span></header>
+<main>
+<section class="intro"><div><p class="eyebrow">YOUR GAMES, ON THE GO</p><h1>ゲームライブラリ</h1><p class="lead">つくっているゲームを、iPhoneでも。<br>OneDriveのZIPを取り込んで、1Pで動作確認できます。</p></div><div class="intro-art" aria-hidden="true"><div class="pixel-window"><span>01</span><div class="pixel-path"></div><b>▶</b></div><span class="art-label">SAVED ON YOUR DEVICE</span></div></section>
+<section class="import-panel" aria-labelledby="import-title"><div class="import-icon" aria-hidden="true">＋</div><div><h2 id="import-title">ゲームを取り込む</h2><p>エディターで作成した「スマホ用1Pビルド」のZIPを選んでください。</p><small>ゲーム本体はこの端末に保存され、GitHubへ送信されません。</small></div><button id="choose-zip" class="primary" disabled>ZIPを選ぶ <span aria-hidden="true">↗</span></button></section>
+<input id="zip-file" type="file" accept=".zip,application/zip" hidden><input id="save-file" type="file" accept=".json,application/json" hidden>
+<div id="notice" role="status" aria-live="polite">オフライン起動の準備をしています…</div>
+<section id="progress-panel" hidden aria-label="取り込み状況"><div><strong id="progress-title">準備中</strong><span id="progress-count"></span></div><progress id="progress" max="100" value="0"></progress><p id="progress-file"></p><small>完了するまでこの画面を開いたままにしてください。</small></section>
+<section aria-labelledby="games-title"><div class="section-heading"><h2 id="games-title">保存したゲーム <span id="game-count">0</span></h2><button id="refresh" class="text-button">一覧を更新</button></div><div id="games" class="games"><div class="empty"><span aria-hidden="true">◇</span><h3>はじめの1本を、ここに。</h3><p>取り込んだゲームが並びます。<br>更新するときも、新しいZIPを選ぶだけ。</p></div></div></section>
+<section class="guide"><div><span class="step">01</span><h3>ホーム画面に追加</h3><p>Safariの共有メニューから追加し、ホーム画面のアイコンを開いてください。</p></div><div><span class="step">02</span><h3>OneDriveから選ぶ</h3><p>ZIP選択画面の「ブラウズ」からOneDriveへ。見つからない場合は「このiPhone内」に保存して選びます。</p></div><div><span class="step">03</span><h3>取り込んだらオフライン</h3><p>ゲーム内でセーブしてから終了。大切なセーブは「セーブを書き出す」でファイルに残せます。</p></div></section>
+<aside class="storage-panel"><div><strong>この端末の保存領域</strong><p id="storage-status">確認中…</p></div><button id="persist" class="secondary">保存の保護をリクエスト</button></aside>
+<p class="fineprint">端末の空き容量不足やWebサイトデータの削除で、ゲーム・セーブが消える場合があります。セーブのバックアップをおすすめします。1P用ZIP専用 · 外部通信を必要とするプラグインには非対応</p>
+<footer><span>MV POCKET <small>1.0</small></span><button id="update-app" class="text-button" hidden>プレイヤーを更新</button><span id="offline-status">オフライン準備中</span></footer>
+</main></div>
+<section id="player-view" hidden aria-label="ゲーム再生"><header><button id="exit-game">‹ ライブラリへ</button><span id="playing-title"></span><span id="playing-status" role="status">起動中…</span></header><div id="frame-host"></div></section>
+<dialog id="confirm-dialog"><h2 id="confirm-title"></h2><p id="confirm-description"></p><div id="confirm-detail"></div><div class="dialog-actions"><button id="confirm-cancel" class="secondary">キャンセル</button><button id="confirm-ok" class="primary">取り込む</button></div></dialog>
+<dialog id="export-dialog"><h2>セーブのバックアップ</h2><p>「ファイルに保存」を押してください。iPhoneでは「共有する」からOneDriveや「ファイル」に保存することもできます。</p><p id="export-name"></p><p id="export-result" role="status"></p><div class="dialog-actions"><button id="export-close" class="secondary">閉じる</button><button id="export-share" class="secondary" hidden>共有する</button><a id="export-link" class="primary" download>ファイルに保存</a></div></dialog>
+<noscript>このプレイヤーにはJavaScriptが必要です。</noscript>
+</body></html>
